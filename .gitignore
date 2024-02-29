@@ -1,0 +1,4 @@
+hd5decodeenv/
+--pycache--/
+*.pyv
+
