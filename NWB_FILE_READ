@@ -1,0 +1,9 @@
+from pynwb import NWBHDF5IO
+
+def read_nwb_file(file_path):
+    io = NWBHDF5IO(file_path, mode='r')
+    nwbfile = io.read()
+    print(nwbfile)
+    # Here you can add more specific processing, e.g., reading specific datasets.
+    io.close()
+

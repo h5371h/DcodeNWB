@@ -1,0 +1,10 @@
+import matplotlib.pyplot as plt
+
+def visualize_data(data):
+    plt.figure(figsize=(10, 4))
+    plt.plot(data)
+    plt.xlabel('Time')
+    plt.ylabel('Amplitude')
+    plt.title('Sample Visualization')
+    plt.show()
+

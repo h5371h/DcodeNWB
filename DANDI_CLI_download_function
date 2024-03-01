@@ -1,0 +1,10 @@
+import subprocess
+
+def download_nwb_from_dandi(dandiset_id, target_path):
+    command = f"dandi download https://dandiarchive.org/dandiset/{dandiset_id} --target {target_path}"
+    try:
+        subprocess.run(command, shell=True, check=True)
+        print("Download completed successfully.")
+    except subprocess.CalledProcessError as e:
+        print(f"Error during download: {e}")
+

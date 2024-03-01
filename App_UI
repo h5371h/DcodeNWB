@@ -1,0 +1,20 @@
+import tkinter as tk
+from tkinter import filedialog, simpledialog
+
+# Initialize the main window
+root = tk.Tk()
+root.title("NWB Data Viewer")
+
+# Function to handle the download process
+def handle_download():
+    dandiset_id = simpledialog.askstring("Input", "Enter DANDIset ID:")
+    target_path = filedialog.askdirectory()
+    download_nwb_from_dandi(dandiset_id, target_path)
+
+# Button to trigger the download
+download_button = tk.Button(root, text="Download NWB from DANDI", command=handle_download)
+download_button.pack()
+
+# Main event loop
+root.mainloop()
+
