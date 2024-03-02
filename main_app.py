@@ -8,10 +8,17 @@ from pynwb import NWBHDF5IO
 
 # DANDI CLI Download Function
 
-def download_nwb_from_dandi(dandiset_id, target_path):
-    command = f"dandi download https://dandiarchive.org/dandiset/{dandiset_id} --target {target_path}"
+def download_nwb_from_dandi(download_link):
+    """
+    Downloads data from DANDI given a specific command.
+    
+    Parameters:
+    download_link (str): The DANDI command or URL for downloading.
+                         This could be a Dandiset ID like 'DANDI:000023', a specific subject, or a direct file link.
+    """
     try:
-        subprocess.run(command, shell=True, check=True)
+        # Execute the download command
+        subprocess.run(f"dandi download {download_link}", shell=True, check=True)
         print("Download completed successfully.")
     except subprocess.CalledProcessError as e:
         print(f"Error during download: {e}")
@@ -40,24 +47,25 @@ def visualize_data(data):
 # Application UI setup
 
 def setup_ui():
-    # Initialize the main window
+    global root, download_entry  # Make these available globally for simplicity
     root = tk.Tk()
     root.title("NWB Data Viewer")
-
-    # Ensure 'root' is defined before creating widgets that depend on it
+    
+    # Entry for download link or ID
+    download_entry = tk.Entry(root)
+    download_entry.pack()
+    
     download_button = tk.Button(root, text="Download NWB from DANDI", command=handle_download)
     download_button.pack()
-
-    # Main event loop
+    
     root.mainloop()
 
-# Function to handle the download process
 def handle_download():
-    # Assuming this function interacts with the UI, make sure it's called after the UI setup begins
-    dandiset_id = simpledialog.askstring("Input", "Enter DANDIset ID:")
-    target_path = filedialog.askdirectory()
-    if dandiset_id and target_path:  # Make sure values are provided
-        download_nwb_from_dandi(dandiset_id, target_path)
+    download_link = download_entry.get()  # Get the link or ID from the entry widget
+    if download_link:
+        download_nwb_from_dandi(download_link)
+    else:
+        print("Please enter a valid download link or Dandiset ID.")
 
 # Main entry point of the application
 if __name__ == "__main__":
